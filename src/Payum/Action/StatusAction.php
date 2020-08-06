@@ -20,17 +20,55 @@ final class StatusAction implements ActionInterface
 
         $details = $payment->getDetails();
 
-        if (200 === $details['status']) {
-            $request->markCaptured();
 
-            return;
-        }
+        //The parameter after verify/ is the transaction reference to be verified
+        $url = "https://api.paystack.co/transaction/verify/{$details['token']}";
 
-        if (400 === $details['status']) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            [
+                "Authorization: Bearer sk_test_change_the_api_key"]
+        );
+        $response = curl_exec($ch);
+        // Check if any error occurred -- return null
+        if (curl_errno($ch)) {
             $request->markFailed();
-
             return;
         }
+        curl_close($ch);
+
+        if ($response) {
+            $result = json_decode($response, true);
+            if ($result) {
+                if ($result['status'] === false) {
+                    $request->markFailed();
+                }
+
+                if ($result['data']) {
+                    //something came in
+                    if ($result['data']['status'] === 'success') {
+                        $request->markCaptured();
+                        return;
+                    } else {
+                        // dump("Transaction was not successful: Last gateway response was: " . $result['data']['gateway_response']);
+                        $request->markFailed();
+                    }
+                } else {
+                    // dump($result['message']);
+                    $request->markFailed();
+                }
+            } else {
+                $request->markFailed();
+            }
+        } else {
+            $request->markFailed();
+        }
+
+        $request->markFailed();
     }
 
     public function supports($request): bool
