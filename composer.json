@@ -1,5 +1,5 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "patrickkenekayoro/sylius-paystack",
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin"],
     "description": "Acme example plugin for Sylius.",
