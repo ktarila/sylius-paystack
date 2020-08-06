@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ktarila\SyliusExamplePlugin\Form\Type;
+namespace Ktarila\SyliusPaystackPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
