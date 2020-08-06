@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ktarila\SyliusExamplePlugin\Payum;
+namespace Ktarila\SyliusPaystackPlugin\Payum;
 
 final class SyliusApi
 {
