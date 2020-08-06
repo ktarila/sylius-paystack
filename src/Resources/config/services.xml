@@ -10,7 +10,7 @@
             <tag name="sylius.gateway_configuration_type" type="sylius_payment" label="Sylius Payment" />
             <tag name="form.type" />
         </service>
-        <service id="Ktarila\SyliusPaystackPlugin\Payum\Action\CaptureAction" public=true>
+        <service id="Ktarila\SyliusPaystackPlugin\Payum\Action\CaptureAction" public="true">
             <argument type="service" id="sylius.http_client" />
             <tag name="payum.action" factory="sylius_payment" alias="payum.action.capture" />
         </service>
