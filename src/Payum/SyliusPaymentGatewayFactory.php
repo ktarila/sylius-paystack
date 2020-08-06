@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ktarila\SyliusPaystackPlugin\Payum;
 
 use Ktarila\SyliusPaystackPlugin\Payum\Action\StatusAction;
+use Ktarila\SyliusPaystackPlugin\Payum\SyliusApi;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 
