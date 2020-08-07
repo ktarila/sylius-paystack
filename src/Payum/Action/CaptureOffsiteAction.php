@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace Ktarila\SyliusPaystackPlugin\Payum\Action;
 
@@ -44,15 +44,15 @@ final class CaptureOffsiteAction implements ActionInterface, ApiAwareInterface, 
         $result = array();
         //Set other parameters as keys in the $postdata array
         $url      = "https://api.paystack.co/transaction/initialize";
-        $postdata = array('reference' => $token,
-            'email' => $payment->getOrder()->getCustomer()->getEmail(),
-            'amount' => $payment->getAmount(),
+        $postdata = array('reference' => $token, 
+            'email' => $payment->getOrder()->getCustomer()->getEmail(), 
+            'amount' => $payment->getAmount(), 
             'callback_url' => $request->getToken()->getAfterUrl());
 
 
         $headers = [
-            'Authorization' => 'Bearer ' . $this->api->getApiKey(),
-            'Cache-Control' => 'no-cache',
+            'Authorization: Bearer ' . $this->api->getApiKey(),
+            'Cache-Control: no-cache',
         ];
 
         $httpRequest = new GetHttpRequest();
@@ -70,10 +70,7 @@ final class CaptureOffsiteAction implements ActionInterface, ApiAwareInterface, 
             curl_setopt($ch, CURLOPT_URL, 'https://api.paystack.co/transaction/initialize');
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                "Authorization: Bearer sk_test_change_the_api_key",
-                "Cache-Control: no-cache",
-            ));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             //So that curl_exec returns the contents of the cURL; rather than echoing it
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -92,6 +89,8 @@ final class CaptureOffsiteAction implements ActionInterface, ApiAwareInterface, 
 
             \curl_close($ch);
         }
+
+
     }
 
     public function supports($request): bool

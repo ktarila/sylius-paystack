@@ -14,5 +14,10 @@
             <argument type="service" id="sylius.http_client" />
             <tag name="payum.action" factory="sylius_payment" alias="payum.action.capture" />
         </service>
+
+        <service id="Ktarila\SyliusPaystackPlugin\Payum\Action\StatusAction" public="true">
+            <argument type="service" id="sylius.http_client" />
+            <tag name="payum.action.status" factory="sylius_payment" alias="payum.action.status" />
+        </service>
     </services>
 </container>
